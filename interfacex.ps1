@@ -3,7 +3,7 @@
 #  Fast, beautiful CMD-based network config with presets
 # =============================================================================
 
-$script:Version         = "1.1.0"
+$script:Version         = "1.1.1"
 $script:PresetFile      = Join-Path $PSScriptRoot "presets.json"
 $script:HistoryFile     = Join-Path $PSScriptRoot "history.json"
 $script:ProfilesFile    = Join-Path $PSScriptRoot "profiles.json"
@@ -95,7 +95,9 @@ function Invoke-WithSpinner {
 function Read-SingleKey($prompt) {
     Write-Host ""
     Write-Color "  $prompt " "Yellow"
-    $key = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+    do {
+        $key = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+    } while ([int]$key.Character -eq 0)
     $char = $key.Character
     Write-Host $char
     return [string]$char
