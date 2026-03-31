@@ -62,6 +62,20 @@ if exist "%SOURCE_DIR%presets.json" (
     )
 )
 
+:: Preserve existing history
+if exist "%SOURCE_DIR%history.json" (
+    if not exist "%INSTALL_DIR%\history.json" (
+        copy /y "%SOURCE_DIR%history.json" "%INSTALL_DIR%\" >nul
+    )
+)
+
+:: Preserve existing profiles
+if exist "%SOURCE_DIR%profiles.json" (
+    if not exist "%INSTALL_DIR%\profiles.json" (
+        copy /y "%SOURCE_DIR%profiles.json" "%INSTALL_DIR%\" >nul
+    )
+)
+
 echo  [OK] Files copied to %INSTALL_DIR%
 
 :: Check if already in PATH
